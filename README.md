@@ -5,10 +5,10 @@ This is a simple gas price oracle that can be used if you are running a local ge
 
 requirements: pip3 install -r requirements.txt
 
-usage: python3 gasExpress.py
-for public server: python3 publicserver.py
+usage: python3 gasExpress.py <br/>
+for public server: python3 publicserver.py <br/>
 
-API:
-/ - JSON results
+API:<br/>
+/ - JSON results<br/>
 /health - Ok/ Notok
 
