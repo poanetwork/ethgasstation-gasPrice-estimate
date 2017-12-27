@@ -9,7 +9,7 @@ import numpy as np
 from web3 import Web3, HTTPProvider
 
 
-web3 = Web3(HTTPProvider('http://localhost:8545'))
+web3 = Web3(HTTPProvider('https://wallet.parity.io'))
 
 ### These are the threholds used for % blocks accepting to define the recommended gas prices. can be edited here if desired
 
@@ -83,6 +83,7 @@ def write_to_json(gprecs, prediction_table):
             outfile.write(prediction_tableout)
 
     except Exception as e:
+        print('Error3')
         print(e)
 
 def process_block_transactions(block):
@@ -234,6 +235,7 @@ def master_control():
             return True
 
         except: 
+            print('Error2')
             print(traceback.format_exc())
 
     alltx = pd.DataFrame()
@@ -247,8 +249,15 @@ def master_control():
             block = web3.eth.blockNumber
             if (timer.process_block < block):
                 updated = update_dataframes(timer.process_block)
-                timer.process_block = timer.process_block + 1    
+                timer.process_block = timer.process_block + 1
+                errors = 'errors.json'
+                with open(errors, 'w') as outfile:
+                    json.dump({'health': 'Ok'}, outfile)
         except:
+            print('Error1')
+            errors = 'errors.json'
+            with open(errors, 'w') as outfile:
+                json.dump({'health': 'Notok'}, outfile)
             pass
 
         time.sleep(1)
